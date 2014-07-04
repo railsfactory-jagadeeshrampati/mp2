@@ -1,13 +1,11 @@
 require '../lib/roman'
 require 'test/unit'
 
-
 class TestRoman < Test::Unit::TestCase
 
   def test_hello
     assert true
   end
-
 
   def test_one
     assert_equal 'I',Roman.convert(1)
@@ -31,13 +29,8 @@ class TestRoman < Test::Unit::TestCase
     assert_equal 'CCCXCVII',Roman.convert(397)
     assert_equal 'D',Roman.convert(500)
     assert_equal 'DCCXCIX',Roman.convert(799)
-   assert_equal 'M',Roman.convert(1000)
- 
- 
- 
+    assert_equal 'M',Roman.convert(1000)
+    assert_equal 'MMMMM',Roman.convert(5000)
  
   end
-
-
-
 end  
