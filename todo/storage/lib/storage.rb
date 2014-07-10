@@ -1,9 +1,10 @@
 class Storage
-	def self.dump
+	def self.dump 
 		f = File.open("todo.txt","w")
-	    f.write("hello")
-              return File.writable?("todo.txt")
-	    f.close	
+               a = "hello world"
+               f.write(a)
+               f.close
+              self.load
 	end
 	def self.load
          data = ""
