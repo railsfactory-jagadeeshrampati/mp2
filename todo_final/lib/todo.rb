@@ -23,12 +23,12 @@ end
 
 def self.add(items)
 @pending << items
-return @pending.size
+return @pending.count
 end
 
 def self.complete(num)
-@completed << @pending[num]
-@pending.delete_at(num)
+@completed << @pending[num - 1]
+@pending.delete_at(num - 1)
 return @completed.size
 end
 
@@ -48,9 +48,11 @@ def self.empty
 @todo.clear
 return true
 end
+
 def self.show_pending(num)
 return @pending[num-1]
 end
+
 def self.show_completed(num)
 return @completed[num-1]
 end
