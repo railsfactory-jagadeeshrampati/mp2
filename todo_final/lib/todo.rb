@@ -1,85 +1,89 @@
+$todo = []
+$completed = []
+$pending = []
 class Todolist
-attr_accessor :filename,:todo,:pending,:completed
-@todo = []
-@pending = []
-@completed = []
+attr_accessor :filename
 
-def self.initialize(filename)
+
+
+def initialize(filename)
 @filename = filename
 end
 
-def self.pending
-return @pending.size
+def pending
+return $pending.size
 end
 
-def self.list
-@todo = @pending + @completed
-return @todo.size
+def list
+$todo = $pending + $completed
+return $todo.size
 end
 
-def self.completed
-return @completed.length
+def completed
+return $completed.length
 end
 
-def self.add(items)
-@todo << items
-@pending << items
+def add(items)
+#@todo = []
+#@pending = []
+$todo << items
+$pending << items
 #self.save
 #self.load1
-return @pending.count
+return $pending.length
 end
 
-def self.complete(num)
-@completed << @pending[num - 1]
-@pending.delete_at(num - 1)
-return @completed.size
+def complete(num)
+$completed << $pending[num - 1]
+$pending.delete_at(num - 1)
+return $completed.size
 end
 
-def self.delete(num)
-@completed.delete_at(num-1)
+def delete(num)
+$completed.delete_at(num-1)
 #self.save
 #self.load1
-return @completed.size
+return $completed.size
 end
 
-def self.modify(num , item)
-@pending[num-1] = item
+def modify(num , item)
+$pending[num-1] = item
 #self.save
 #self.load1
-return @pending.length
+return $pending.length
 end
 
-def self.empty
-@pending.clear
-@completed.clear
-@todo.clear
+def empty
+$pending.clear
+$completed.clear
+$todo.clear
 #self.save
 #self.load1
 return true
 end
 
-def self.show_pending(num)
+def show_pending(num)
 #self.save
 #self.load1
-return @pending[num-1]
+return $pending[num-1]
 end
 
-def self.show_completed(num)
+def show_completed(num)
 #self.save
 #self.load1
-return @completed[num-1]
+return $completed[num-1]
 end
-def self.save
-f = File.open("todo.txt", "w")
+def save
+f = File.open(@filename, "w")
 str =""
-str = @todo.join("\n")
+str = $todo.join("\n")
 f.write(str)
 f.close
 return true
 end
-def self.load1
-@todo = open('todo.txt').map { |line| line.split('\n')[0] }
-@completed = @todo.select { |c| c.match(/#Done/) }
-@pending = @todo - @completed
+def load1
+$todo = open(@filename).map { |line| line.split('\n')[0] }
+$completed = @todo.select { |c| c.match(/#Done/) }
+$pending = $todo - $completed
 end
 end
