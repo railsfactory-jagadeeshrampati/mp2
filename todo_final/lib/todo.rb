@@ -73,6 +73,5 @@ def load1
    f.each_line { |line| todo << line }
    @completed = @todo.select {|c| c.match("#done")}
     @pending = @todo - @completed
-return @todo.size
 end
 end
