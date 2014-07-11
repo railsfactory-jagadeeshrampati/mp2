@@ -1,9 +1,8 @@
 require '../lib/todo.rb'
-
 require 'test/unit'
+
 $t = Todolist.new("jagadeesh.txt")
 class Testtodo < Test::Unit::TestCase
-
 
 def test_zempty
 assert_equal true, $t.empty
@@ -38,31 +37,33 @@ end
 
 def test_complete
 assert_equal 1, $t.complete(1)
-#assert_equal 2, @t.complete(2)
 assert_equal 3, $t.pending
 assert_equal 4, $t.list
 assert_equal 1, $t.completed
 end
+
 def test_delete
 assert_equal 0, $t.delete(1)
-#assert
 assert_equal 3, $t.pending
 assert_equal 3, $t.list
 assert_equal 0, $t.completed
 end
+
 def test_modify
 assert_equal 3, $t.modify(1,"close")
-
 assert_equal 0, $t.completed
 assert_equal 3, $t.pending
 assert_equal 3, $t.list
 end
+
 def test_show_pending
 assert_equal "edit", $t.show_pending(2)
 end
+
 def test_show_completed
 assert_equal nil , $t.show_completed(1)
 end
+
 def test_store
 assert_equal true, $t.save
 end
