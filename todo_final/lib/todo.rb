@@ -47,7 +47,7 @@ def empty
 $pending.clear
 $completed.clear
 $todo.clear
-return true
+return $todo.size
 end
 
 def show_pending(num)
@@ -64,12 +64,14 @@ str =""
 str = $todo.join("\n")
 f.write(str)
 f.close
-return true
+count = File.foreach(@filename).inject(0) {|c, line| c+1}
+return count
 end
 
 def load1
 $todo = open(@filename).map { |line| line.split('\n')[0] }
-$completed = @todo.select { |c| c.match(/#Done/) }
+$completed = $todo.select { |c| c.match(/#Done/) }
 $pending = $todo - $completed
+return $todo.size
 end
 end

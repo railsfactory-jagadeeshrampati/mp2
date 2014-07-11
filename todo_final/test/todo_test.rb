@@ -4,8 +4,8 @@ require 'test/unit'
 $t = Todolist.new("jagadeesh.txt")
 class Testtodo < Test::Unit::TestCase
 
-def test_zempty
-assert_equal true, $t.empty
+def test_aaempty
+assert_equal 0, $t.empty
 assert_equal 0, $t.pending
 assert_equal 0, $t.list
 assert_equal 0, $t.completed
@@ -65,9 +65,11 @@ assert_equal nil , $t.show_completed(1)
 end
 
 def test_store
-assert_equal true, $t.save
+assert_equal 3, $t.save
 end
-
+def test_tload
+  assert_equal 3,$t.load1
+end
 end
   
 
