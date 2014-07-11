@@ -43,20 +43,21 @@ class Testtodo < Test::Unit::TestCase
 		
 		# precondition
 		@t.empty
-		@t.add("one")
+		@t.add("one #undone")
+                @t.add("two #undone")
 		#before state
-		assert_equal 1,@t.pending.size
+		assert_equal 2,@t.pending.size
 		assert_equal 0,@t.completed.size
-		assert_equal 1,@t.list.size
+		assert_equal 2,@t.list.size
 
 
 		#action
 		   @t.complete(1)
 
 		#after 
-		assert_equal 0,@t.pending.size
+		assert_equal 1,@t.pending.size
 		assert_equal 1,@t.completed.size
-		assert_equal 1,@t.list.size
+		assert_equal 2,@t.list.size
 	end
 
 
@@ -65,7 +66,7 @@ class Testtodo < Test::Unit::TestCase
 
 		 # precondition
 		 @t.empty
-		 @t.add("one")
+		 @t.add("one #undone")
 		 @t.complete(1)
 
 		 
@@ -129,9 +130,9 @@ class Testtodo < Test::Unit::TestCase
 	 def test_show_complete
 		 # precondition
 		 @t.empty
-		 @t.add("one")
-		 @t.add("two")
-                 @t.add("three")
+		 @t.add("one #undone")
+		 @t.add("two #undone")
+                 @t.add("three #undone")
 	       
 		 #before state
 		 assert_equal 3,@t.pending.size
@@ -139,15 +140,49 @@ class Testtodo < Test::Unit::TestCase
 		 assert_equal 3,@t.list.size
 
 		#action
-		 @t.complete(1)
-                
+		 @t.complete(1)    
+                @t.save       
 		 #after
 		 assert_equal 2,@t.pending.size
 		 assert_equal 1,@t.completed.size
 		 assert_equal 3,@t.list.size
-                 assert_equal "one",@t.show_completed(1) 
+                 assert_equal "one #done",@t.show_completed(1) 
                  
 	end
+	 def test_storage
+		 # precondition
+		 @t.empty
+		 @t.add("goto market #undone")
+		 @t.add("goto movie #undone")
+                 @t.add("buy books #undone")
+	       
+		 #before state
+		 assert_equal 3,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 3,@t.list.size
+                 
+                 #action
+                  @t.complete(1)
+                  @t.save
+                 #after saving   
+                 assert_equal 2,@t.pending.size
+		 assert_equal 1,@t.completed.size
+		 assert_equal 3,@t.list.size
+                 assert_equal "goto market #done",@t.show_completed(1) 
+                 
+                 #deleting the elements of array
+                 @t.empty
+                 assert_equal 0,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 0,@t.list.size
+                 
+                 # calling load function
+                 @t.load1
+                 #after loading
+                 assert_equal 2,@t.pending.size
+		 assert_equal 1,@t.completed.size
+		 assert_equal 3,@t.list.size
+      end
                
 end
  

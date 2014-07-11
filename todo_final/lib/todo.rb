@@ -30,6 +30,7 @@ end
 
 def complete(num)
 @completed << @pending[num - 1]
+@completed[num - 1].gsub!(/#undone/,'#done')
 @pending.delete_at(num - 1)
 @completed
 end
@@ -68,9 +69,10 @@ f.close
 end
 
 def load1
-@todo = open(@filename).map { |line| line.split('\n')[0] }
-@completed = @todo.select { |c| c.match(/#Done/) }
-@pending = @todo - @completed
+   f = File.open(@filename,'r')
+   f.each_line { |line| todo << line }
+   @completed = @todo.select {|c| c.match("#done")}
+    @pending = @todo - @completed
 return @todo.size
 end
 end
