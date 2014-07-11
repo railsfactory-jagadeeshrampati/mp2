@@ -1,77 +1,76 @@
-$todo = []
-$completed = []
-$pending = []
+
 class Todolist
-attr_accessor :filename
+attr_accessor :filename,:todo,:completed,:pending
 
 def initialize(filename)
 @filename = filename
+@todo = []
+@completed = []
+@pending = []
 end
 
 def pending
-return $pending.size
+  @pending
 end
 
 def list
-$todo = $pending + $completed
-return $todo.size
+@todo = @pending + @completed
+ @todo
 end
 
 def completed
-return $completed.length
+ @completed
 end
 
 def add(items)
-$todo << items
-$pending << items
-return $pending.length
+@todo << items
+@pending << items
+@pending
 end
 
 def complete(num)
-$completed << $pending[num - 1]
-$pending.delete_at(num - 1)
-return $completed.size
+@completed << @pending[num - 1]
+@pending.delete_at(num - 1)
+@completed
 end
 
 def delete(num)
-$completed.delete_at(num-1)
-return $completed.size
+@completed.delete_at(num-1)
+ @completed
 end
 
 def modify(num , item)
-$pending[num-1] = item
-return $pending.length
+@pending[num-1] = item
+ return @pending[num - 1]
 end
 
 def empty
-$pending.clear
-$completed.clear
-$todo.clear
-return $todo.size
+@pending.clear
+@completed.clear
+@todo.clear
+return true
 end
 
 def show_pending(num)
-return $pending[num-1]
+return @pending[num-1]
 end
 
 def show_completed(num)
-return $completed[num-1]
+return @completed[num-1]
 end
 
 def save
 f = File.open(@filename, "w")
 str =""
-str = $todo.join("\n")
+str = @todo.join("\n")
 f.write(str)
 f.close
-count = File.foreach(@filename).inject(0) {|c, line| c+1}
-return count
 end
 
 def load1
-$todo = open(@filename).map { |line| line.split('\n')[0] }
-$completed = $todo.select { |c| c.match(/#Done/) }
-$pending = $todo - $completed
-return $todo.size
+@todo = open(@filename).map { |line| line.split('\n')[0] }
+@completed = @todo.select { |c| c.match(/#Done/) }
+@pending = @todo - @completed
+return @todo.size
 end
 end

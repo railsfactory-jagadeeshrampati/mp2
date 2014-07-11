@@ -1,75 +1,154 @@
 require '../lib/todo.rb'
 require 'test/unit'
 
-$t = Todolist.new("jagadeesh.txt")
+
 class Testtodo < Test::Unit::TestCase
+	
+       def setup
+	  @t = Todolist.new("jagadeesh.txt")
+       end
+ 
+     def teardown
+       @t=nil
+     end
+   
+	def test_zempty
+	    @t.empty
+	    assert_equal 0,@t.pending.size
+	    assert_equal 0,@t.completed.size
+	    assert_equal 0,@t.list.size
+	end
 
-def test_aaempty
-assert_equal 0, $t.empty
-assert_equal 0, $t.pending
-assert_equal 0, $t.list
-assert_equal 0, $t.completed
-end
-def test_add1
-assert_equal 1, $t.add("open")
-assert_equal 1, $t.pending
-assert_equal 1, $t.list
-assert_equal 0, $t.completed
-end
-def test_add2
-assert_equal 2, $t.add("save")
-assert_equal 2, $t.pending
-assert_equal 2, $t.list
-assert_equal 0, $t.completed
-end
-def test_add3
-assert_equal 3, $t.add("edit")
-assert_equal 3, $t.pending
-assert_equal 3, $t.list
-assert_equal 0, $t.completed
-end
-def test_add4
-assert_equal 4, $t.add("select")
-assert_equal 4, $t.pending
-assert_equal 4, $t.list
-assert_equal 0, $t.completed
-end
+    
+        def test_add1
+	   @t.empty
+	   @t.add("one")
+	   assert_equal 1,@t.list.size
+	   assert_equal 1,@t.pending.size
+	   assert_equal 0,@t.completed.size
+	 end
 
-def test_complete
-assert_equal 1, $t.complete(1)
-assert_equal 3, $t.pending
-assert_equal 4, $t.list
-assert_equal 1, $t.completed
-end
 
-def test_delete
-assert_equal 0, $t.delete(1)
-assert_equal 3, $t.pending
-assert_equal 3, $t.list
-assert_equal 0, $t.completed
-end
 
-def test_modify
-assert_equal 3, $t.modify(1,"close")
-assert_equal 0, $t.completed
-assert_equal 3, $t.pending
-assert_equal 3, $t.list
-end
+	def test_add2
+	   @t.empty
+	   @t.add("one")
+	   @t.add("two")
+	   assert_equal 2,@t.list.size
+	   assert_equal 2,@t.pending.size
+	   assert_equal 0,@t.completed.size
+	end
 
-def test_show_pending
-assert_equal "edit", $t.show_pending(2)
-end
+	def test_complete
+		
+		# precondition
+		@t.empty
+		@t.add("one")
+		#before state
+		assert_equal 1,@t.pending.size
+		assert_equal 0,@t.completed.size
+		assert_equal 1,@t.list.size
 
-def test_show_completed
-assert_equal nil , $t.show_completed(1)
-end
 
-def test_store
-assert_equal 3, $t.save
+		#action
+		   @t.complete(1)
+
+		#after 
+		assert_equal 0,@t.pending.size
+		assert_equal 1,@t.completed.size
+		assert_equal 1,@t.list.size
+	end
+
+
+
+	def test_delete
+
+		 # precondition
+		 @t.empty
+		 @t.add("one")
+		 @t.complete(1)
+
+		 
+		 #before state
+		 assert_equal 0,@t.pending.size
+		 assert_equal 1,@t.completed.size
+		 assert_equal 1,@t.list.size
+
+		#action
+		 @t.delete(1)
+	 
+		 #after
+		 assert_equal 0,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 0,@t.list.size
+	 end
+
+
+	 def test_modify
+		 # precondition
+		 @t.empty
+		 @t.add("one")
+		 @t.add("two")
+	       
+		 #before state
+		 assert_equal 2,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 2,@t.list.size
+
+		#action
+		 @t.modify(1,"three")
+	 
+		 #after
+		 assert_equal 2,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 2,@t.list.size
+	end
+
+	 def test_show_pending
+		 # precondition
+		 @t.empty
+		 @t.add("one")
+		 @t.add("two")
+	       
+		 #before state
+		 assert_equal 2,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 2,@t.list.size
+
+		#action
+		 @t.show_pending(1)
+	 
+		 #after
+		 assert_equal 2,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 2,@t.list.size
+                 assert_equal "one",@t.show_pending(1)
+                 
+	end
+
+	 def test_show_complete
+		 # precondition
+		 @t.empty
+		 @t.add("one")
+		 @t.add("two")
+                 @t.add("three")
+	       
+		 #before state
+		 assert_equal 3,@t.pending.size
+		 assert_equal 0,@t.completed.size
+		 assert_equal 3,@t.list.size
+
+		#action
+		 @t.complete(1)
+                
+		 #after
+		 assert_equal 2,@t.pending.size
+		 assert_equal 1,@t.completed.size
+		 assert_equal 3,@t.list.size
+                 assert_equal "one",@t.show_completed(1) 
+                 
+	end
+               
 end
-def test_tload
-  assert_equal 3,$t.load1
-end
-end
-  
+ 
 
