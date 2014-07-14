@@ -184,6 +184,9 @@ class Testtodo < Test::Unit::TestCase
                  assert_equal 1,@t.pending.size
 		 assert_equal 2,@t.completed.size
 		 assert_equal 3,@t.list.size
+                 assert_equal "buy books #done",@t.show_completed(2) 
+                 assert_equal "goto market #done",@t.show_completed(1) 
+                 
       end
                
 end

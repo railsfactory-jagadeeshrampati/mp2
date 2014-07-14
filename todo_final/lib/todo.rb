@@ -72,7 +72,7 @@ end
 
 def load1
    f = File.open(@filename,'r')
-   f.each_line { |line| todo << line }
+   f.each_line { |line| @todo << line.strip }
    @completed = @todo.select {|c| c.match("#done")}
     @pending = @todo - @completed
 end
