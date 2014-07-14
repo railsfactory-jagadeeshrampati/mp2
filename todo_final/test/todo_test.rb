@@ -186,6 +186,7 @@ class Testtodo < Test::Unit::TestCase
 		 assert_equal 3,@t.list.size
                  assert_equal "buy books #done",@t.show_completed(2) 
                  assert_equal "goto market #done",@t.show_completed(1) 
+                 assert_equal "goto movie #undone",@t.show_pending(1) 
                  
       end
                
