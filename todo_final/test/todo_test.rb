@@ -166,11 +166,8 @@ class Testtodo < Test::Unit::TestCase
                   @t.complete(2)
                   @t.save
                  #after saving   
-                 assert_equal 1,@t.pending.size
-		 assert_equal 2,@t.completed.size
-		 assert_equal 3,@t.list.size
-                 assert_equal "buy books #done",@t.show_completed(2) 
-                 assert_equal "goto market #done",@t.show_completed(1) 
+                
+                 assert_equal 3,@t.save #checking the number of tasks in a file
                  
                  #deleting the elements of array
                  @t.empty

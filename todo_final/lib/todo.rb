@@ -1,4 +1,3 @@
-
 class Todolist
 attr_accessor :filename,:todo,:completed,:pending
 
@@ -68,12 +67,15 @@ str =""
 str = @todo.join("\n")
 f.write(str)
 f.close
+count = 0
+count = File.foreach(@filename).inject(0) {|c, line| c+1}
+count
 end
 
 def load1
    f = File.open(@filename,'r')
    f.each_line { |line| @todo << line.strip }
-   @completed = @todo.select {|c| c.match("#done")}
+   @completed = @todo.select { |c|  c.match("#done") }
     @pending = @todo - @completed
 end
 end
