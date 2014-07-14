@@ -30,7 +30,9 @@ end
 
 def complete(num)
 @completed << @pending[num - 1]
-@completed[num - 1].gsub!(/#undone/,'#done')
+for i in 0...@completed.size
+@completed[i].gsub!(/#undone/,'#done')
+end
 @pending.delete_at(num - 1)
 @completed
 end

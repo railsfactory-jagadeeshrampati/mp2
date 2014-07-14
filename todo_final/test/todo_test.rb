@@ -163,11 +163,13 @@ class Testtodo < Test::Unit::TestCase
                  
                  #action
                   @t.complete(1)
+                  @t.complete(2)
                   @t.save
                  #after saving   
-                 assert_equal 2,@t.pending.size
-		 assert_equal 1,@t.completed.size
+                 assert_equal 1,@t.pending.size
+		 assert_equal 2,@t.completed.size
 		 assert_equal 3,@t.list.size
+                 assert_equal "buy books #done",@t.show_completed(2) 
                  assert_equal "goto market #done",@t.show_completed(1) 
                  
                  #deleting the elements of array
@@ -179,8 +181,8 @@ class Testtodo < Test::Unit::TestCase
                  # calling load function
                  @t.load1
                  #after loading
-                 assert_equal 2,@t.pending.size
-		 assert_equal 1,@t.completed.size
+                 assert_equal 1,@t.pending.size
+		 assert_equal 2,@t.completed.size
 		 assert_equal 3,@t.list.size
       end
                
