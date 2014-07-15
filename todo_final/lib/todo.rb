@@ -23,7 +23,7 @@ attr_accessor :filename,:todo,:completed,:pending
 
        def add(items)
 	@todo << items 
-	@pending << items + "#undone" 
+	@pending << items + " #undone" 
 	@pending
        end
 
