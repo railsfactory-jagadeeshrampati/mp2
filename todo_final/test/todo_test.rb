@@ -43,8 +43,8 @@ class Testtodo < Test::Unit::TestCase
 		
 		# precondition
 		@t.empty
-		@t.add("one #undone")
-                @t.add("two #undone")
+		@t.add("one ")
+                @t.add("two ")
 		#before state
 		assert_equal 2,@t.pending.size
 		assert_equal 0,@t.completed.size
@@ -66,7 +66,7 @@ class Testtodo < Test::Unit::TestCase
 
 		 # precondition
 		 @t.empty
-		 @t.add("one #undone")
+		 @t.add("one ")
 		 @t.complete(1)
 
 		 
@@ -88,8 +88,8 @@ class Testtodo < Test::Unit::TestCase
 	 def test_modify
 		 # precondition
 		 @t.empty
-		 @t.add("one")
-		 @t.add("two")
+		 @t.add("one ")
+		 @t.add("two ")
 	       
 		 #before state
 		 assert_equal 2,@t.pending.size
@@ -108,8 +108,8 @@ class Testtodo < Test::Unit::TestCase
 	 def test_show_pending
 		 # precondition
 		 @t.empty
-		 @t.add("one")
-		 @t.add("two")
+		 @t.add("one ")
+		 @t.add("two ")
 	       
 		 #before state
 		 assert_equal 2,@t.pending.size
@@ -123,16 +123,16 @@ class Testtodo < Test::Unit::TestCase
 		 assert_equal 2,@t.pending.size
 		 assert_equal 0,@t.completed.size
 		 assert_equal 2,@t.list.size
-                 assert_equal "one",@t.show_pending(1)
+                 assert_equal "one #undone",@t.show_pending(1)
                  
 	end
 
 	 def test_show_complete
 		 # precondition
 		 @t.empty
-		 @t.add("one #undone")
-		 @t.add("two #undone")
-                 @t.add("three #undone")
+		 @t.add("one ")
+		 @t.add("two ")
+                 @t.add("three ")
 	       
 		 #before state
 		 assert_equal 3,@t.pending.size
@@ -152,9 +152,9 @@ class Testtodo < Test::Unit::TestCase
 	def test_storage
 		 # precondition
 		 @t.empty
-		 @t.add("goto market #undone")
-		 @t.add("goto movie #undone")
-                 @t.add("buy books #undone")
+		 @t.add("goto market ")
+		 @t.add("goto movie ")
+                 @t.add("buy books ")
 	       
 		 #before state
 		 assert_equal 3,@t.pending.size
@@ -190,9 +190,9 @@ class Testtodo < Test::Unit::TestCase
        def test_storage1
 		 # precondition
 		 @t.empty
-		 @t.add("goto market #undone")
-		 @t.add("goto movie #undone")
-                 @t.add("buy books #undone")
+		 @t.add("goto market ")
+		 @t.add("goto movie ")
+                 @t.add("buy books ")
 	       
 		 #before state
 		 assert_equal 3,@t.pending.size
