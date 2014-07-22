@@ -1,0 +1,15 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Databases in system are<h1>
+<ol>
+<% @res.each do |item| %>
+
+<a href = "/use?db_name=<%=item.values.first %>"><li><%=item.values.first %> </li></a>
+<% end %>
+</ol>
+<h1> Click on any database to view its tables<h1>
+</form>
+</body>
+</html>

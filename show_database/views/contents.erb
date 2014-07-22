@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<h2> The contents of the table are<h2>
+<table border = '1'>
+	<% c = 0%>
+<% @res.each do |k| %>
+<% if c ==0 %>
+<tr>
+<th><%=k.keys%></th>
+</tr>
+<%end%>
+ <tr>
+ 	<td><%=k.values%></td>
+ </tr>
+ <% c = c + 1%>
+ <%end%>
+</table>
+ </body>
+</html>

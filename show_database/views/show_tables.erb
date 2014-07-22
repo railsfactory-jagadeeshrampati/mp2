@@ -1,0 +1,17 @@
+<html>
+<head>
+</head>
+<body>
+<h3>Database changed<h3>
+<br>
+<h3>Tables in database are<h3>
+<ol>
+<% @res.each do |item| %>
+
+<a href = "/contents?table=<%=item.values.first %>"><li><%=item.values.first %> </li></a>
+<% end %>
+</ol>
+<h2> select the table to view its contents<h2>
+
+</body>
+</html>
